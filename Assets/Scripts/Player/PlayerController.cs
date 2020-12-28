@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float moveVelocity = 4f;
-    [SerializeField] private float jumpVelocity = 12f;
-    [SerializeField] private LayerMask groundLayer;
+    public float moveVelocity = 4f;
+    public float jumpVelocity = 12f;
+    
+    //"Coyote Hang-time (Allows the player to jump even if off the ledges for a brief moment)
+    public float hangTime = 0.2f;
+    private float hangCounter;
 
-    private Rigidbody2D rigidbody2d;
-    private BoxCollider2D boxcollider2d;
+    public float jumpBufferLength = 0.1f;
+    private float jumpBufferCount;
+    
+    private Rigidbody2D theRB;
+    private BoxCollider2D theBoxCollider;
     private float inputDirection;
-
-    [SerializeField] private bool grounded;
+    public LayerMask groundLayer;
 
     private void Awake()
     {
-        rigidbody2d = GetComponent<Rigidbody2D>();
-        boxcollider2d = GetComponent<BoxCollider2D>();
+        theRB = GetComponent<Rigidbody2D>();
+        theBoxCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
@@ -32,7 +37,19 @@ public class PlayerController : MonoBehaviour
     {
         //All physics code should be handled inside FixedUpdate()
 
-        rigidbody2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+        theRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        //Manage Hang-time
+        if (IsGrounded() && theRB.velocity.y == 0)
+        {
+            hangCounter = hangTime;
+            Debug.Log($"hangCounter={hangCounter}");
+        }
+        else
+        {
+            hangCounter -= Time.deltaTime;
+            Debug.Log($"hangCounter={hangCounter}");
+        }
 
         MovePlayer(inputDirection);
 
@@ -42,13 +59,33 @@ public class PlayerController : MonoBehaviour
 
     private void CheckPlayerInput()
     {
-        if (IsGrounded() && Input.GetButtonDown("Jump"))
+        //Manage jump buffer
+        if (Input.GetButtonDown("Jump"))
         {
-            rigidbody2d.velocity = Vector2.up * jumpVelocity;
+            //Jump button was pressed
+            jumpBufferCount = jumpBufferLength;
+        }
+        else
+        {
+            jumpBufferCount -= Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.A))
+        //Check managed Hang-time and jump buffer before modifying the velocity
+        if (jumpBufferCount >= 0 && hangCounter > 0)
         {
+            theRB.velocity = Vector2.up * jumpVelocity;
+            jumpBufferCount = 0;
+            hangCounter = 0;
+        }
+
+        //Jump button was released and Player is moving up
+        if (Input.GetButtonUp("Jump") && theRB.velocity.y > 0) 
+        {
+            //Cut the player's y-velocity in half
+            theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y * 0.5f);
+        }
+
+        if (Input.GetKey(KeyCode.A)) {
             MovePlayer(-inputDirection);
         }
         else
@@ -60,7 +97,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 MovePlayer(0);
-                rigidbody2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+                theRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             }
         }
         
@@ -75,29 +112,30 @@ public class PlayerController : MonoBehaviour
     {
         float extraHeight = 0.1f;
         //Cast a ray straight down
-        RaycastHit2D raycastHit = Physics2D.Raycast(boxcollider2d.bounds.center, Vector2.down, boxcollider2d.bounds.extents.y + extraHeight, groundLayer.value);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(theBoxCollider.bounds.center, theBoxCollider.bounds.size, 0f, Vector2.down, extraHeight, groundLayer);
         Color rayColor;
 
         //If hit something...
         if (raycastHit.collider != null)
         {
-            grounded = true;
             rayColor = Color.green;
         }
         else 
         {
-            grounded = false;
             rayColor = Color.red;
         }
         
-        Debug.DrawRay(boxcollider2d.bounds.center, Vector2.down * (boxcollider2d.bounds.extents.y + extraHeight), rayColor);
-        Debug.Log(raycastHit.collider);
+        Debug.DrawRay(theBoxCollider.bounds.center + new Vector3(theBoxCollider.bounds.extents.x, 0), Vector2.down * (theBoxCollider.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(theBoxCollider.bounds.center - new Vector3(theBoxCollider.bounds.extents.x, 0), Vector2.down * (theBoxCollider.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(theBoxCollider.bounds.center - new Vector3(theBoxCollider.bounds.extents.x, theBoxCollider.bounds.extents.y), (Vector2.right * theBoxCollider.bounds.extents.x) * 2, rayColor);
+        
+        //Debug.Log(raycastHit.collider);
 
         return raycastHit.collider != null;
     }
 
     private void MovePlayer(float direction)
     {
-        rigidbody2d.velocity = new Vector2(inputDirection * moveVelocity, rigidbody2d.velocity.y);
+        theRB.velocity = new Vector2(inputDirection * moveVelocity, theRB.velocity.y);
     }
 }
