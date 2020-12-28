@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferCount;
 
     public ParticleSystem footstepParticles;
-    public int particlesOverDistance;
+    public float particlesOverDistance;
     private ParticleSystem.EmissionModule footEmission;
 
     private Rigidbody2D theRB;
@@ -23,11 +23,14 @@ public class PlayerController : MonoBehaviour
     private float inputDirection;
     public LayerMask groundLayer;
 
+    private PlayRandomSounds playRandomSounds;
+
     private void Awake()
     {
         theRB = GetComponent<Rigidbody2D>();
         theBoxCollider = GetComponent<BoxCollider2D>();
         footEmission = footstepParticles.emission;
+        playRandomSounds = GetComponent<PlayRandomSounds>();
     }
 
     private void Update()
@@ -39,6 +42,7 @@ public class PlayerController : MonoBehaviour
         //Footstep particles
         if (IsGrounded() && Input.GetAxisRaw("Horizontal") != 0)
         {
+            playRandomSounds.PlaySound();
             footEmission.rateOverDistance = particlesOverDistance;
         }
         else
@@ -57,12 +61,12 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded() && theRB.velocity.y == 0)
         {
             hangCounter = hangTime;
-            Debug.Log($"hangCounter={hangCounter}");
+            //Debug.Log($"hangCounter={hangCounter}");
         }
         else
         {
             hangCounter -= Time.deltaTime;
-            Debug.Log($"hangCounter={hangCounter}");
+            //Debug.Log($"hangCounter={hangCounter}");
         }
 
         MovePlayer(inputDirection);
