@@ -104,6 +104,111 @@ TextureImporter:
   - first:
       213: 21300066
     second: Jump_Swing_Fire_33
+  - first:
+      213: 2327405336075511656
+    second: Jump_Swing_Fire_0
+  - first:
+      213: 3476126927713392319
+    second: Jump_Swing_Fire_1
+  - first:
+      213: -6998900559829647362
+    second: Jump_Swing_Fire_2
+  - first:
+      213: -8806658244288164819
+    second: Jump_Swing_Fire_3
+  - first:
+      213: 1616558906734888003
+    second: Jump_Swing_Fire_4
+  - first:
+      213: 435401801569618456
+    second: Jump_Swing_Fire_5
+  - first:
+      213: 4741317021247808150
+    second: Jump_Swing_Fire_6
+  - first:
+      213: -5226626082795415347
+    second: Jump_Swing_Fire_7
+  - first:
+      213: 3539323557140207997
+    second: Jump_Swing_Fire_8
+  - first:
+      213: -3043260023028698275
+    second: Jump_Swing_Fire_9
+  - first:
+      213: -449053241197992326
+    second: Jump_Swing_Fire_10
+  - first:
+      213: -7121993906968965036
+    second: Jump_Swing_Fire_11
+  - first:
+      213: -1055801630231849639
+    second: Jump_Swing_Fire_12
+  - first:
+      213: 3680967997176789858
+    second: Jump_Swing_Fire_13
+  - first:
+      213: 5534583580890176414
+    second: Jump_Swing_Fire_14
+  - first:
+      213: -3967538326841435177
+    second: Jump_Swing_Fire_15
+  - first:
+      213: -8283905424714267235
+    second: Jump_Swing_Fire_16
+  - first:
+      213: -4613137188212246278
+    second: Jump_Swing_Fire_17
+  - first:
+      213: -3537470038512744726
+    second: Jump_Swing_Fire_18
+  - first:
+      213: 7970683597344625728
+    second: Jump_Swing_Fire_19
+  - first:
+      213: 2297750254992928410
+    second: Jump_Swing_Fire_20
+  - first:
+      213: 8112009294690376968
+    second: Jump_Swing_Fire_21
+  - first:
+      213: -1599894643971924075
+    second: Jump_Swing_Fire_22
+  - first:
+      213: -8203323231069003830
+    second: Jump_Swing_Fire_23
+  - first:
+      213: -1171778311286326346
+    second: Jump_Swing_Fire_24
+  - first:
+      213: 1028741536955918542
+    second: Jump_Swing_Fire_25
+  - first:
+      213: -4107652248118984832
+    second: Jump_Swing_Fire_26
+  - first:
+      213: 5543849347223590419
+    second: Jump_Swing_Fire_27
+  - first:
+      213: 5410813968783976981
+    second: Jump_Swing_Fire_28
+  - first:
+      213: 6030458511003217192
+    second: Jump_Swing_Fire_29
+  - first:
+      213: 1899235516810293104
+    second: Jump_Swing_Fire_30
+  - first:
+      213: -5984894052846159970
+    second: Jump_Swing_Fire_31
+  - first:
+      213: -492434621685379933
+    second: Jump_Swing_Fire_32
+  - first:
+      213: -7609235352245590932
+    second: Jump_Swing_Fire_33
+  - first:
+      213: 6047300571331236368
+    second: Jump_Swing_Fire_34
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -147,7 +252,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 256
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -228,10 +333,10 @@ TextureImporter:
       name: Jump_Swing_Fire_0
       rect:
         serializedVersion: 2
-        x: 87
-        y: 1080
-        width: 71
-        height: 110
+        x: 0
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,8 +344,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8b6ecc0e007c5548a2ee57d5ef1f502
-      internalID: 21300000
+      spriteID: 867212172da9c4020800000000000000
+      internalID: 2327405336075511656
       vertices: []
       indices: 
       edges: []
@@ -249,10 +354,10 @@ TextureImporter:
       name: Jump_Swing_Fire_1
       rect:
         serializedVersion: 2
-        x: 336
-        y: 1076
-        width: 116
-        height: 113
+        x: 256
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,8 +365,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc871dafa0ba69a4f8590fdc7cf22852
-      internalID: 21300002
+      spriteID: fb6d680060fad3030800000000000000
+      internalID: 3476126927713392319
       vertices: []
       indices: 
       edges: []
@@ -270,10 +375,10 @@ TextureImporter:
       name: Jump_Swing_Fire_2
       rect:
         serializedVersion: 2
-        x: 576
-        y: 1064
-        width: 148
-        height: 122
+        x: 512
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,8 +386,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9070279b1f20614c9ee8d3ccb938d26
-      internalID: 21300004
+      spriteID: eff3219c509eede90800000000000000
+      internalID: -6998900559829647362
       vertices: []
       indices: 
       edges: []
@@ -291,10 +396,10 @@ TextureImporter:
       name: Jump_Swing_Fire_3
       rect:
         serializedVersion: 2
-        x: 832
-        y: 1068
-        width: 144
-        height: 112
+        x: 768
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,8 +407,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57de7b98c5e045645a510f981a8e8773
-      internalID: 21300006
+      spriteID: d2c40fa8cf678c580800000000000000
+      internalID: -8806658244288164819
       vertices: []
       indices: 
       edges: []
@@ -312,10 +417,10 @@ TextureImporter:
       name: Jump_Swing_Fire_4
       rect:
         serializedVersion: 2
-        x: 1084
-        y: 1060
-        width: 148
-        height: 116
+        x: 1024
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,8 +428,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 381a97ba9cc925f4989e3cb656d6d7e3
-      internalID: 21300008
+      spriteID: 3444d62c2cb2f6610800000000000000
+      internalID: 1616558906734888003
       vertices: []
       indices: 
       edges: []
@@ -333,10 +438,10 @@ TextureImporter:
       name: Jump_Swing_Fire_5
       rect:
         serializedVersion: 2
-        x: 1336
-        y: 1040
-        width: 144
-        height: 124
+        x: 1280
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,8 +449,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb9fca50e337faa4392a7fe4fae058da
-      internalID: 21300010
+      spriteID: 81a4f15b1abda0600800000000000000
+      internalID: 435401801569618456
       vertices: []
       indices: 
       edges: []
@@ -354,10 +459,10 @@ TextureImporter:
       name: Jump_Swing_Fire_6
       rect:
         serializedVersion: 2
-        x: 1592
-        y: 1028
-        width: 116
-        height: 129
+        x: 1536
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,8 +470,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ec9e6b865c45da45b54b4410262466c
-      internalID: 21300012
+      spriteID: 6922df2d5ba8cc140800000000000000
+      internalID: 4741317021247808150
       vertices: []
       indices: 
       edges: []
@@ -375,10 +480,10 @@ TextureImporter:
       name: Jump_Swing_Fire_7
       rect:
         serializedVersion: 2
-        x: 60
-        y: 772
-        width: 140
-        height: 136
+        x: 0
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -386,8 +491,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52d578907cf64cd4fa416d454223dea1
-      internalID: 21300014
+      spriteID: dc81031054b4777b0800000000000000
+      internalID: -5226626082795415347
       vertices: []
       indices: 
       edges: []
@@ -396,10 +501,10 @@ TextureImporter:
       name: Jump_Swing_Fire_8
       rect:
         serializedVersion: 2
-        x: 316
-        y: 800
-        width: 156
-        height: 160
+        x: 256
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -407,8 +512,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2dea2e035d0b4b2479f06b5468ea215d
-      internalID: 21300016
+      spriteID: d799388e5043e1130800000000000000
+      internalID: 3539323557140207997
       vertices: []
       indices: 
       edges: []
@@ -417,10 +522,10 @@ TextureImporter:
       name: Jump_Swing_Fire_9
       rect:
         serializedVersion: 2
-        x: 580
-        y: 823
-        width: 164
-        height: 153
+        x: 512
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -428,8 +533,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d6dd61672d04404b86f612355f04f99
-      internalID: 21300018
+      spriteID: d533a38022b24c5d0800000000000000
+      internalID: -3043260023028698275
       vertices: []
       indices: 
       edges: []
@@ -438,10 +543,10 @@ TextureImporter:
       name: Jump_Swing_Fire_10
       rect:
         serializedVersion: 2
-        x: 860
-        y: 820
-        width: 136
-        height: 140
+        x: 768
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -449,8 +554,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61891c473f92f974da7ed3ac3aa72894
-      internalID: 21300020
+      spriteID: a76e721d474a4c9f0800000000000000
+      internalID: -449053241197992326
       vertices: []
       indices: 
       edges: []
@@ -459,10 +564,10 @@ TextureImporter:
       name: Jump_Swing_Fire_11
       rect:
         serializedVersion: 2
-        x: 1119
-        y: 822
-        width: 113
-        height: 174
+        x: 1024
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -470,8 +575,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 226456c483ef6284aaa09f725ec75a75
-      internalID: 21300022
+      spriteID: 4505e9a8648992d90800000000000000
+      internalID: -7121993906968965036
       vertices: []
       indices: 
       edges: []
@@ -480,10 +585,10 @@ TextureImporter:
       name: Jump_Swing_Fire_12
       rect:
         serializedVersion: 2
-        x: 1377
-        y: 825
-        width: 119
-        height: 183
+        x: 1280
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -491,8 +596,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1334cee6186177c46b3b9fb0aea40737
-      internalID: 21300024
+      spriteID: 95590ccd20a0951f0800000000000000
+      internalID: -1055801630231849639
       vertices: []
       indices: 
       edges: []
@@ -501,10 +606,10 @@ TextureImporter:
       name: Jump_Swing_Fire_13
       rect:
         serializedVersion: 2
-        x: 1624
-        y: 826
-        width: 160
-        height: 178
+        x: 1536
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -512,8 +617,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42940977e7946f74996dfb2d6cfac6cf
-      internalID: 21300026
+      spriteID: 26bbd4d04ec651330800000000000000
+      internalID: 3680967997176789858
       vertices: []
       indices: 
       edges: []
@@ -522,10 +627,10 @@ TextureImporter:
       name: Jump_Swing_Fire_14
       rect:
         serializedVersion: 2
-        x: 28
-        y: 576
-        width: 420
-        height: 160
+        x: 0
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -533,8 +638,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d77e104eb0be424c9f4db9801a20955
-      internalID: 21300028
+      spriteID: e9b1bae717acecc40800000000000000
+      internalID: 5534583580890176414
       vertices: []
       indices: 
       edges: []
@@ -543,10 +648,10 @@ TextureImporter:
       name: Jump_Swing_Fire_15
       rect:
         serializedVersion: 2
-        x: 512
-        y: 588
-        width: 162
-        height: 100
+        x: 256
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -554,8 +659,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ded55fe7b364684bbfdd921140d3401
-      internalID: 21300030
+      spriteID: 7db5ed3a9e870f8c0800000000000000
+      internalID: -3967538326841435177
       vertices: []
       indices: 
       edges: []
@@ -564,10 +669,10 @@ TextureImporter:
       name: Jump_Swing_Fire_16
       rect:
         serializedVersion: 2
-        x: 768
-        y: 580
-        width: 163
-        height: 108
+        x: 512
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -575,8 +680,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fb87c2d1a52f9047937972212634460
-      internalID: 21300032
+      spriteID: d9589fef7e7a90d80800000000000000
+      internalID: -8283905424714267235
       vertices: []
       indices: 
       edges: []
@@ -585,10 +690,10 @@ TextureImporter:
       name: Jump_Swing_Fire_17
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 571
-        width: 168
-        height: 109
+        x: 768
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -596,8 +701,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d682ec12102c174ca5d7aaabad75866
-      internalID: 21300034
+      spriteID: af8f6743b28daffb0800000000000000
+      internalID: -4613137188212246278
       vertices: []
       indices: 
       edges: []
@@ -606,10 +711,10 @@ TextureImporter:
       name: Jump_Swing_Fire_18
       rect:
         serializedVersion: 2
-        x: 1288
-        y: 566
-        width: 162
-        height: 126
+        x: 1024
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -617,8 +722,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25f0ddfb107e9154aa468738ea649d35
-      internalID: 21300036
+      spriteID: ae64cd60eb168eec0800000000000000
+      internalID: -3537470038512744726
       vertices: []
       indices: 
       edges: []
@@ -627,10 +732,10 @@ TextureImporter:
       name: Jump_Swing_Fire_19
       rect:
         serializedVersion: 2
-        x: 1568
-        y: 566
-        width: 142
-        height: 150
+        x: 1280
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -638,8 +743,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bac3993a94cc774fae21ed9621e5682
-      internalID: 21300038
+      spriteID: 04452c4508e8d9e60800000000000000
+      internalID: 7970683597344625728
       vertices: []
       indices: 
       edges: []
@@ -648,10 +753,10 @@ TextureImporter:
       name: Jump_Swing_Fire_20
       rect:
         serializedVersion: 2
-        x: 44
-        y: 312
-        width: 148
-        height: 148
+        x: 1536
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -659,8 +764,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdb0b94de70527b4db9e4a59bdb2e174
-      internalID: 21300040
+      spriteID: a9eaa63deaf33ef10800000000000000
+      internalID: 2297750254992928410
       vertices: []
       indices: 
       edges: []
@@ -669,10 +774,10 @@ TextureImporter:
       name: Jump_Swing_Fire_21
       rect:
         serializedVersion: 2
-        x: 304
-        y: 288
-        width: 148
-        height: 140
+        x: 0
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -680,8 +785,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f46b2cffce7ac2f46aeb81e249864828
-      internalID: 21300042
+      spriteID: 80ddfa86975a39070800000000000000
+      internalID: 8112009294690376968
       vertices: []
       indices: 
       edges: []
@@ -690,10 +795,10 @@ TextureImporter:
       name: Jump_Swing_Fire_22
       rect:
         serializedVersion: 2
-        x: 560
-        y: 260
-        width: 144
-        height: 136
+        x: 256
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -701,8 +806,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e473095d87f707d4c9c39e6c2dc674ca
-      internalID: 21300044
+      spriteID: 59fd0044c480cc9e0800000000000000
+      internalID: -1599894643971924075
       vertices: []
       indices: 
       edges: []
@@ -711,10 +816,10 @@ TextureImporter:
       name: Jump_Swing_Fire_23
       rect:
         serializedVersion: 2
-        x: 812
+        x: 512
         y: 256
-        width: 136
-        height: 129
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -722,8 +827,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d2e58578dd513c48b53a611e462a55f
-      internalID: 21300046
+      spriteID: acf1c620cf0f72e80800000000000000
+      internalID: -8203323231069003830
       vertices: []
       indices: 
       edges: []
@@ -732,10 +837,10 @@ TextureImporter:
       name: Jump_Swing_Fire_24
       rect:
         serializedVersion: 2
-        x: 1068
+        x: 768
         y: 256
-        width: 124
-        height: 129
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -743,8 +848,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 954bd3aae682da94a9f0373045c10aaf
-      internalID: 21300048
+      spriteID: 6bb754095d10dbfe0800000000000000
+      internalID: -1171778311286326346
       vertices: []
       indices: 
       edges: []
@@ -753,10 +858,10 @@ TextureImporter:
       name: Jump_Swing_Fire_25
       rect:
         serializedVersion: 2
-        x: 1324
+        x: 1024
         y: 256
-        width: 116
-        height: 136
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -764,8 +869,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74641241248f3cf4ebd2397f11f23b96
-      internalID: 21300050
+      spriteID: ec862f33af2d64e00800000000000000
+      internalID: 1028741536955918542
       vertices: []
       indices: 
       edges: []
@@ -774,10 +879,10 @@ TextureImporter:
       name: Jump_Swing_Fire_26
       rect:
         serializedVersion: 2
-        x: 1588
-        y: 276
-        width: 99
-        height: 126
+        x: 1280
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -785,8 +890,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4e56b814e9d71346b37272628f037c2
-      internalID: 21300052
+      spriteID: 08f780a2b00bef6c0800000000000000
+      internalID: -4107652248118984832
       vertices: []
       indices: 
       edges: []
@@ -795,10 +900,10 @@ TextureImporter:
       name: Jump_Swing_Fire_27
       rect:
         serializedVersion: 2
-        x: 85
-        y: 56
-        width: 64
-        height: 96
+        x: 1536
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -806,8 +911,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cebaf8fe7c4a54347a1dc8f642d6e69d
-      internalID: 21300054
+      spriteID: 3161b85db95bfec40800000000000000
+      internalID: 5543849347223590419
       vertices: []
       indices: 
       edges: []
@@ -816,10 +921,10 @@ TextureImporter:
       name: Jump_Swing_Fire_28
       rect:
         serializedVersion: 2
-        x: 345
-        y: 56
-        width: 58
-        height: 103
+        x: 0
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -827,8 +932,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8cf94d4f986a5f4a898db065e06cac9
-      internalID: 21300056
+      spriteID: 51a271b03a2171b40800000000000000
+      internalID: 5410813968783976981
       vertices: []
       indices: 
       edges: []
@@ -837,10 +942,10 @@ TextureImporter:
       name: Jump_Swing_Fire_29
       rect:
         serializedVersion: 2
-        x: 601
-        y: 56
-        width: 57
-        height: 108
+        x: 256
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -848,8 +953,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94ad7a5b2b441384e8f5883efe113b3d
-      internalID: 21300058
+      spriteID: 82de315a01e70b350800000000000000
+      internalID: 6030458511003217192
       vertices: []
       indices: 
       edges: []
@@ -858,10 +963,10 @@ TextureImporter:
       name: Jump_Swing_Fire_30
       rect:
         serializedVersion: 2
-        x: 854
-        y: 56
-        width: 71
-        height: 109
+        x: 512
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -869,8 +974,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdfc8fb0af278a447a6643b3b198d71f
-      internalID: 21300060
+      spriteID: 07f6844d3a07b5a10800000000000000
+      internalID: 1899235516810293104
       vertices: []
       indices: 
       edges: []
@@ -879,10 +984,10 @@ TextureImporter:
       name: Jump_Swing_Fire_31
       rect:
         serializedVersion: 2
-        x: 1111
-        y: 56
-        width: 70
-        height: 109
+        x: 768
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -890,8 +995,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cb50942bdb6ac24ea9a1dab2b0699e0
-      internalID: 21300062
+      spriteID: e97b1c9719261fca0800000000000000
+      internalID: -5984894052846159970
       vertices: []
       indices: 
       edges: []
@@ -900,10 +1005,10 @@ TextureImporter:
       name: Jump_Swing_Fire_32
       rect:
         serializedVersion: 2
-        x: 1367
-        y: 56
-        width: 70
-        height: 110
+        x: 1024
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -911,8 +1016,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 904d6b2f5aa7dc54bb47d8af014ebf90
-      internalID: 21300064
+      spriteID: 3acc65312558a29f0800000000000000
+      internalID: -492434621685379933
       vertices: []
       indices: 
       edges: []
@@ -921,10 +1026,10 @@ TextureImporter:
       name: Jump_Swing_Fire_33
       rect:
         serializedVersion: 2
-        x: 1623
-        y: 56
-        width: 70
-        height: 110
+        x: 1280
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -932,8 +1037,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f134dfd957445f346b9be6936b79d0ce
-      internalID: 21300066
+      spriteID: c64ae0933c0966690800000000000000
+      internalID: -7609235352245590932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jump_Swing_Fire_34
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 012173464d35ce350800000000000000
+      internalID: 6047300571331236368
       vertices: []
       indices: 
       edges: []
