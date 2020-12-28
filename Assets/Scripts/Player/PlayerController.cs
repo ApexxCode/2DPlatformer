@@ -13,7 +13,11 @@ public class PlayerController : MonoBehaviour
 
     public float jumpBufferLength = 0.1f;
     private float jumpBufferCount;
-    
+
+    public ParticleSystem footstepParticles;
+    public int rateOverDistance = 3;
+    private ParticleSystem.EmissionModule footEmission;
+
     private Rigidbody2D theRB;
     private BoxCollider2D theBoxCollider;
     private float inputDirection;
@@ -23,13 +27,13 @@ public class PlayerController : MonoBehaviour
     {
         theRB = GetComponent<Rigidbody2D>();
         theBoxCollider = GetComponent<BoxCollider2D>();
+        footEmission = footstepParticles.emission;
     }
 
     private void Update()
     {
         //Get horizontal input from the player
         inputDirection = Input.GetAxisRaw("Horizontal");
-        
         CheckPlayerInput();
     }
 
@@ -42,11 +46,13 @@ public class PlayerController : MonoBehaviour
         //Manage Hang-time
         if (IsGrounded() && theRB.velocity.y == 0)
         {
+            footEmission.rateOverDistance = rateOverDistance;
             hangCounter = hangTime;
             Debug.Log($"hangCounter={hangCounter}");
         }
         else
         {
+            footEmission.rateOverDistance = 0;
             hangCounter -= Time.deltaTime;
             Debug.Log($"hangCounter={hangCounter}");
         }
