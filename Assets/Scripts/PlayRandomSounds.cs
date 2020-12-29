@@ -6,7 +6,7 @@ public class PlayRandomSounds : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip[] audioClipArray;
-
+    [SerializeField, Range(0.1f, 1f)] private float playbackVolume = 1f;
     private bool isPlaying;
 
     private void Awake()
@@ -21,16 +21,24 @@ public class PlayRandomSounds : MonoBehaviour
 
         if (!isPlaying)
         {
+            //Save the first position in the array (0) for the previous played sound.
+            //This way we will never hear the same sound twice in sequence.
+            int n = Random.Range(1, audioClipArray.Length);
+
             isPlaying = true;
-            audioSource.clip = audioClipArray[Random.Range(0, audioClipArray.Length)];
+            audioSource.clip = audioClipArray[n];
+            audioSource.volume = playbackVolume;
             audioSource.Play();
             StartCoroutine(PlaySoundReadyRoutine());
+            audioClipArray[n] = audioClipArray[0];
+            audioClipArray[0] = audioSource.clip;
         }
     }
 
     IEnumerator PlaySoundReadyRoutine()
     {
-        yield return new WaitForSeconds(0.25f);
+        //Reset isPlaying bool to allow the next sound playback
+        yield return new WaitForSeconds(0.3f);
         isPlaying = false;
     }
 }

@@ -4,29 +4,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveVelocity = 4f;
-    public float jumpVelocity = 12f;
-    
-    //"Coyote Hang-time (Allows the player to jump even if off the ledges for a brief moment)
-    public float hangTime = 0.2f;
-    private float hangCounter;
-
-    public float jumpBufferLength = 0.1f;
-    private float jumpBufferCount;
-
-    public ParticleSystem footstepParticles;
-    public float particlesOverDistance;
-    private ParticleSystem.EmissionModule footEmission;
-
-    private Rigidbody2D theRB;
+    [SerializeField] private float moveVelocity = 4f;
+    [SerializeField] private float jumpVelocity = 12f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private ParticleSystem footstepParticles;
+    [SerializeField] private float hangTime = 0.2f;
+    [SerializeField] private float jumpBufferLength = 0.1f;
+    [SerializeField] private float particlesOverDistance;
+    private Animator theAnimator;
     private BoxCollider2D theBoxCollider;
-    private float inputDirection;
-    public LayerMask groundLayer;
-
+    private ParticleSystem.EmissionModule footEmission;
     private PlayRandomSounds playRandomSounds;
+    private Rigidbody2D theRB;
+    private float hangCounter;
+    private float inputDirection;
+    private float jumpBufferCount;
 
     private void Awake()
     {
+        theAnimator = GetComponentInChildren<Animator>();
         theRB = GetComponent<Rigidbody2D>();
         theBoxCollider = GetComponent<BoxCollider2D>();
         footEmission = footstepParticles.emission;
@@ -35,6 +31,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //Update the Animator controller with the player's grounded state
+        theAnimator.SetBool("grounded", IsGrounded());
+
         //Get horizontal input from the player
         inputDirection = Input.GetAxisRaw("Horizontal");
         CheckPlayerInput();
@@ -42,8 +41,8 @@ public class PlayerController : MonoBehaviour
         //Footstep particles
         if (IsGrounded() && Input.GetAxisRaw("Horizontal") != 0)
         {
-            playRandomSounds.PlaySound();
             footEmission.rateOverDistance = particlesOverDistance;
+            playRandomSounds.PlaySound();
         }
         else
         {
@@ -92,6 +91,7 @@ public class PlayerController : MonoBehaviour
         if (jumpBufferCount >= 0 && hangCounter > 0)
         {
             theRB.velocity = Vector2.up * jumpVelocity;
+            theAnimator.SetTrigger("jump");
             jumpBufferCount = 0;
             hangCounter = 0;
         }
@@ -103,17 +103,21 @@ public class PlayerController : MonoBehaviour
             theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y * 0.5f);
         }
 
-        if (Input.GetKey(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.A))
+        {
+            //Move left
             MovePlayer(-inputDirection);
         }
         else
         {
             if (Input.GetKey(KeyCode.D))
             {
+                //Move right
                 MovePlayer(inputDirection);
             }
             else
             {
+                //Stop all movement
                 MovePlayer(0);
                 theRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             }
@@ -129,10 +133,10 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         float extraHeight = 0.1f;
-        //Cast a ray straight down
-        RaycastHit2D raycastHit = Physics2D.BoxCast(theBoxCollider.bounds.center, theBoxCollider.bounds.size, 0f, Vector2.down, extraHeight, groundLayer);
         Color rayColor;
 
+        RaycastHit2D raycastHit = Physics2D.BoxCast(theBoxCollider.bounds.center, theBoxCollider.bounds.size, 0f, Vector2.down, extraHeight, groundLayer);
+        
         //If hit something...
         if (raycastHit.collider != null)
         {
@@ -146,7 +150,6 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(theBoxCollider.bounds.center + new Vector3(theBoxCollider.bounds.extents.x, 0), Vector2.down * (theBoxCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(theBoxCollider.bounds.center - new Vector3(theBoxCollider.bounds.extents.x, 0), Vector2.down * (theBoxCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(theBoxCollider.bounds.center - new Vector3(theBoxCollider.bounds.extents.x, theBoxCollider.bounds.extents.y), (Vector2.right * theBoxCollider.bounds.extents.x) * 2, rayColor);
-        
         //Debug.Log(raycastHit.collider);
 
         return raycastHit.collider != null;
@@ -154,6 +157,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer(float direction)
     {
+        theAnimator.SetFloat("move", direction);
         theRB.velocity = new Vector2(inputDirection * moveVelocity, theRB.velocity.y);
     }
 }
