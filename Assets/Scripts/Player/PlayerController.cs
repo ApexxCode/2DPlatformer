@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private BoxCollider2D _boxCollider;
     private ParticleSystem.EmissionModule _footEmission;
+    private PlayerAnimation _playerAnimation;
     private PlayRandomSounds _playeRandomSounds;
     private Rigidbody2D _rigid;
     private bool facingRight = true, jumping, resetJump;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
         _rigid = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
         _footEmission = _footstepParticles.emission;
+        _playerAnimation = GetComponent<PlayerAnimation>();
         _playeRandomSounds = GetComponent<PlayRandomSounds>();
 
         _rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -89,6 +91,8 @@ public class PlayerController : MonoBehaviour
             _rigid.velocity = Vector2.up * jumpVelocity;
             jumping = false;
         }
+
+        _playerAnimation.Move(Mathf.Abs(horizontalInput));
 
         //Move the player
         _rigid.velocity = new Vector2(horizontalInput * moveVelocity, _rigid.velocity.y);
