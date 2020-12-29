@@ -92,10 +92,10 @@ public class PlayerController : MonoBehaviour
             jumping = false;
         }
 
-        _playerAnimation.Move(horizontalInput);
-
         //Move the player
         _rigid.velocity = new Vector2(horizontalInput * moveVelocity, _rigid.velocity.y);
+
+        _playerAnimation.Move(horizontalInput);
     }
 
     private bool IsGrounded()
