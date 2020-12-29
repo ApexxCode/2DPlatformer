@@ -55,8 +55,6 @@ public class PlayerController : MonoBehaviour
         //Update the Animator controller with the player's grounded state
         //theAnimator.SetBool("grounded", IsGrounded());
 
-        //Get horizontal input from the player
-        move = Input.GetAxisRaw("Horizontal");
         Movement();
         PlayFootsteps();
     }
@@ -96,12 +94,11 @@ public class PlayerController : MonoBehaviour
         //Move the player
         theAnimator.Move(move);
         theRB.velocity = new Vector2(move * moveVelocity, theRB.velocity.y);
-
-        //rigidbody2d.velocity = new Vector2(move, rigidbody2d.velocity.y);
     }
 
     private void Movement()
     {
+        //Store horizontal input from the player
         move = Input.GetAxisRaw("Horizontal");
 
         if (move > 0 && !facingRight || move < 0 && facingRight)
@@ -110,7 +107,6 @@ public class PlayerController : MonoBehaviour
         //Manage jump buffer
         if (Input.GetButtonDown("Jump"))
         {
-            playRandomSounds.StopSound();
             //Jump button was pressed
             jumpBufferCount = jumpBufferTime;
         }
@@ -166,12 +162,6 @@ public class PlayerController : MonoBehaviour
 
         return raycastHit.collider != null;
     }
-
-    //private void MovePlayer(float direction)
-    //{
-    //    theAnimator.Move(direction);
-    //    theRB.velocity = new Vector2(move * moveVelocity, theRB.velocity.y);
-    //}
 
     private void Flip()
     {
