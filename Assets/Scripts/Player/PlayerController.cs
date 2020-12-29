@@ -13,14 +13,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("Select or Create a Layer designated for the ground.")] private LayerMask groundLayer;
 
     [Header("Player Effects")]
-    [SerializeField] private ParticleSystem footstepParticles;
-    [SerializeField] private float particlesOverDistance;
+    [SerializeField, Tooltip("The ParticleSystem you would like for footsteps.")] private ParticleSystem footstepParticles;
+    [SerializeField, Tooltip("The amount of particles to emmit over distance."), Range(0.1f, 10.0f)] private float particlesOverDistance = 1f;
 
-    private Animator theAnimator;
+    private PlayerAnimation theAnimator;
     private BoxCollider2D theBoxCollider;
     private ParticleSystem.EmissionModule footEmission;
     private PlayRandomSounds playRandomSounds;
     private Rigidbody2D theRB;
+    private bool facingRight;
     private float hangCounter;
     private float inputDirection;
     private float jumpBufferCount;
@@ -28,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         footstepParticles = GetComponentInChildren<ParticleSystem>();
-        theAnimator = GetComponentInChildren<Animator>();
+        theAnimator = GetComponent<PlayerAnimation>();
         theRB = GetComponent<Rigidbody2D>();
         theBoxCollider = GetComponent<BoxCollider2D>();
         footEmission = footstepParticles.emission;
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //Update the Animator controller with the player's grounded state
-        theAnimator.SetBool("grounded", IsGrounded());
+        //theAnimator.SetBool("grounded", IsGrounded());
 
         //Get horizontal input from the player
         inputDirection = Input.GetAxisRaw("Horizontal");
@@ -114,7 +115,6 @@ public class PlayerController : MonoBehaviour
         if (jumpBufferCount >= 0 && hangCounter > 0)
         {
             theRB.velocity = Vector2.up * jumpVelocity;
-            theAnimator.SetTrigger("jump");
 
             //Reset counters
             jumpBufferCount = 0;
@@ -153,6 +153,11 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = Vector3.zero;
         }
+
+        if (inputDirection > 0 && !facingRight || inputDirection < 0 && facingRight)
+        {
+            Flip();
+        }
     }
 
     private bool IsGrounded()
@@ -182,7 +187,14 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer(float direction)
     {
-        theAnimator.SetFloat("move", direction);
+        theAnimator.Move(direction);
         theRB.velocity = new Vector2(inputDirection * moveVelocity, theRB.velocity.y);
+    }
+
+    private void Flip()
+    {
+        facingRight = !facingRight;
+        transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
+
     }
 }
