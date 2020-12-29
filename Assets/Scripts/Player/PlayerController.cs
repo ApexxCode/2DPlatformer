@@ -21,9 +21,9 @@ public class PlayerController : MonoBehaviour
     private ParticleSystem.EmissionModule footEmission;
     private PlayRandomSounds playRandomSounds;
     private Rigidbody2D theRB;
-    private bool facingRight;
+    private bool facingRight = true;
     private float hangCounter;
-    private float inputDirection;
+    private float move;
     private float jumpBufferCount;
 
     private void Awake()
@@ -56,8 +56,8 @@ public class PlayerController : MonoBehaviour
         //theAnimator.SetBool("grounded", IsGrounded());
 
         //Get horizontal input from the player
-        inputDirection = Input.GetAxisRaw("Horizontal");
-        CheckPlayerInput();
+        move = Input.GetAxisRaw("Horizontal");
+        Movement();
         PlayFootsteps();
     }
 
@@ -94,15 +94,23 @@ public class PlayerController : MonoBehaviour
         }
 
         //Move the player
-        MovePlayer(inputDirection);
+        theAnimator.Move(move);
+        theRB.velocity = new Vector2(move * moveVelocity, theRB.velocity.y);
+
         //rigidbody2d.velocity = new Vector2(move, rigidbody2d.velocity.y);
     }
 
-    private void CheckPlayerInput()
+    private void Movement()
     {
+        move = Input.GetAxisRaw("Horizontal");
+
+        if (move > 0 && !facingRight || move < 0 && facingRight)
+            Flip();
+
         //Manage jump buffer
         if (Input.GetButtonDown("Jump"))
         {
+            playRandomSounds.StopSound();
             //Jump button was pressed
             jumpBufferCount = jumpBufferTime;
         }
@@ -115,7 +123,6 @@ public class PlayerController : MonoBehaviour
         if (jumpBufferCount >= 0 && hangCounter > 0)
         {
             theRB.velocity = Vector2.up * jumpVelocity;
-
             //Reset counters
             jumpBufferCount = 0;
             hangCounter = 0;
@@ -128,35 +135,10 @@ public class PlayerController : MonoBehaviour
             theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y * 0.5f);
         }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            //Move left
-            MovePlayer(-inputDirection);
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.D))
-            {
-                //Move right
-                MovePlayer(inputDirection);
-            }
-            else
-            {
-                //Stop all movement
-                MovePlayer(0);
-                theRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-            }
-        }
-        
         //R Key was pressed - Reset Player position to home (0, 0, 0)
         if (Input.GetKeyDown(KeyCode.R))
         {
             transform.position = Vector3.zero;
-        }
-
-        if (inputDirection > 0 && !facingRight || inputDirection < 0 && facingRight)
-        {
-            Flip();
         }
     }
 
@@ -185,16 +167,15 @@ public class PlayerController : MonoBehaviour
         return raycastHit.collider != null;
     }
 
-    private void MovePlayer(float direction)
-    {
-        theAnimator.Move(direction);
-        theRB.velocity = new Vector2(inputDirection * moveVelocity, theRB.velocity.y);
-    }
+    //private void MovePlayer(float direction)
+    //{
+    //    theAnimator.Move(direction);
+    //    theRB.velocity = new Vector2(move * moveVelocity, theRB.velocity.y);
+    //}
 
     private void Flip()
     {
         facingRight = !facingRight;
         transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
-
     }
 }
