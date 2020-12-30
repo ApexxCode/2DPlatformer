@@ -10,7 +10,7 @@ public class PlayFootstepsSounds : MonoBehaviour
     [SerializeField, Range(0.1f, 1f)] private float playbackVolume = 1f;
     private bool isPlaying;
 
-    private void Awake()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
@@ -29,8 +29,12 @@ public class PlayFootstepsSounds : MonoBehaviour
             isPlaying = true;
             audioSource.clip = audioClipArray[n];
             audioSource.volume = playbackVolume;
-            audioSource.Play();
+            audioSource.PlayOneShot(audioSource.clip);
+
+            //Wait a moment
             StartCoroutine(PlaySoundReadyRoutine());
+
+            //Set the clip that just played into the 0 position of the array as to not get called twice
             audioClipArray[n] = audioClipArray[0];
             audioClipArray[0] = audioSource.clip;
         }

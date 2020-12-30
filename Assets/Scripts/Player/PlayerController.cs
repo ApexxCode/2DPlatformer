@@ -19,21 +19,21 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D _boxCollider;
     private ParticleSystem.EmissionModule _footEmission;
     private PlayerAnimation _playerAnimation;
-    private PlayFootstepsSounds _playeFootsteps;
+    private PlayFootstepsSounds _playFootsteps;
     private Rigidbody2D _rigid;
     private bool facingRight = true, jumping, resetJump;
     private float hangCounter;
     private float horizontalInput;
     private float jumpBufferCount;
 
-    private void Awake()
+    private void Start()
     {
         _footstepParticles = GetComponentInChildren<ParticleSystem>();
         _rigid = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
         _footEmission = _footstepParticles.emission;
         _playerAnimation = GetComponent<PlayerAnimation>();
-        _playeFootsteps = GetComponent<PlayFootstepsSounds>();
+        _playFootsteps = GetComponent<PlayFootstepsSounds>();
 
         _rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         CheckUserInput();
-        PlayFootsteps();
+        //PlayFootsteps();
     }
 
     private void FixedUpdate()
@@ -73,10 +73,10 @@ public class PlayerController : MonoBehaviour
     private void PlayFootsteps()
     {
         //Footstep particles when grounded and moving either right or left
-        if (IsGrounded() && Input.GetAxisRaw("Horizontal") != 0)
+        if (IsGrounded() && horizontalInput != 0)
         {
+            _playFootsteps.PlaySound();
             _footEmission.rateOverDistance = particlesOverDistance;
-            _playeFootsteps.PlaySound();
         }
         else
         {
@@ -86,6 +86,8 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
+        PlayFootsteps();
+
         if (jumping)
         {
             _rigid.velocity = Vector2.up * jumpVelocity;
