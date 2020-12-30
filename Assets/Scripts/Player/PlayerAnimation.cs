@@ -6,19 +6,14 @@ public class PlayerAnimation : MonoBehaviour
 {
     private Animator theAnimator;
 
-    private void Awake()
-    {
-        
-    }
-
     private void Start()
     {
         theAnimator = GetComponentInChildren<Animator>();
     }
 
-    public void Idle()
+    public void Attack()
     {
-        
+        theAnimator.SetTrigger("Attack");
     }
 
     public void Move(float move)

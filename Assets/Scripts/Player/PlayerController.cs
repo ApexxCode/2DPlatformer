@@ -54,8 +54,14 @@ public class PlayerController : MonoBehaviour
     {
         //Store horizontal input from the player
         horizontalInput = Input.GetAxisRaw("Horizontal");
-
         _grounded = IsGrounded();
+
+        //Attack
+        if (IsGrounded() && _rigid.velocity.x == 0 && Input.GetMouseButtonDown(0))
+        {
+            Debug.Log($"Attack()");
+            _playerAnimation.Attack();
+        }
 
         if (horizontalInput > 0 && !_facingRight || horizontalInput < 0 && _facingRight)
             Flip();
