@@ -6,9 +6,19 @@ public class PlayerAnimation : MonoBehaviour
 {
     private Animator theAnimator;
 
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
         theAnimator = GetComponentInChildren<Animator>();
+    }
+
+    public void Idle()
+    {
+        
     }
 
     public void Move(float move)

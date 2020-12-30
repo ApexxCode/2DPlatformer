@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimation _playerAnimation;
     private PlayFootstepsSounds _playFootsteps;
     private Rigidbody2D _rigid;
-    private bool facingRight = true, jumping, resetJump;
+    private bool _facingRight = true, _grounded, _jumping;
     private float hangCounter;
     private float horizontalInput;
     private float jumpBufferCount;
@@ -55,12 +55,15 @@ public class PlayerController : MonoBehaviour
         //Store horizontal input from the player
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        if (horizontalInput > 0 && !facingRight || horizontalInput < 0 && facingRight)
+        _grounded = IsGrounded();
+
+        if (horizontalInput > 0 && !_facingRight || horizontalInput < 0 && _facingRight)
             Flip();
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            jumping = true;
+            _playerAnimation.Jump(true);
+            _jumping = true;
         }
 
         //R Key was pressed - Reset Player position to home (0, 0, 0)
@@ -68,6 +71,11 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = Vector3.zero;
         }
+
+        //Animate the movement
+        _playerAnimation.Move(horizontalInput);
+
+        PlayFootsteps();
     }
 
     private void PlayFootsteps()
@@ -75,7 +83,10 @@ public class PlayerController : MonoBehaviour
         //Footstep particles when grounded and moving either right or left
         if (IsGrounded() && horizontalInput != 0)
         {
+            //Play a random sound effect for steps taken
             _playFootsteps.PlaySound();
+
+            //Modify the ParticleSystem emissions for the "rock debris"
             _footEmission.rateOverDistance = particlesOverDistance;
         }
         else
@@ -86,18 +97,16 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        PlayFootsteps();
-
-        if (jumping)
+        if (_jumping)
         {
             _rigid.velocity = Vector2.up * jumpVelocity;
-            jumping = false;
+            //Animate the jump
+            _playerAnimation.Jump(true);
+            _jumping = false;
         }
 
         //Move the player
         _rigid.velocity = new Vector2(horizontalInput * moveVelocity, _rigid.velocity.y);
-
-        _playerAnimation.Move(horizontalInput);
     }
 
     private bool IsGrounded()
@@ -110,13 +119,18 @@ public class PlayerController : MonoBehaviour
         //If hit something...
         if (raycastHit.collider != null)
         {
+            _playerAnimation.Jump(false);
+
+            //Hit the ground layer
             rayColor = Color.green;
         }
         else 
         {
+            //Not touching the ground layer
             rayColor = Color.red;
         }
         
+        //Drawa few rays around the player's lower half to show the collision
         Debug.DrawRay(_boxCollider.bounds.center + new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, _boxCollider.bounds.extents.y), (Vector2.right * _boxCollider.bounds.extents.x) * 2, rayColor);
@@ -127,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
-        facingRight = !facingRight;
-        transform.rotation = Quaternion.Euler(0, facingRight ? 0 : 180, 0);
+        _facingRight = !_facingRight;
+        transform.rotation = Quaternion.Euler(0, _facingRight ? 0 : 180, 0);
     }
 }
