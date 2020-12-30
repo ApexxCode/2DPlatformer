@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
             rayColor = Color.red;
         }
         
-        //Drawa few rays around the player's lower half to show the collision
+        //Draw a few rays around the player's lower half to show the collision
         Debug.DrawRay(_boxCollider.bounds.center + new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, _boxCollider.bounds.extents.y), (Vector2.right * _boxCollider.bounds.extents.x) * 2, rayColor);
