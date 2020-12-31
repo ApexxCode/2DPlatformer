@@ -48,8 +48,10 @@ public class PlayerController : MonoBehaviour
     {
         //All physics code should be handled inside FixedUpdate()
 
-        if (_playerAnimation.animator.GetCurrentAnimatorStateInfo(0).IsTag("attack"))
+        //If Player is attacking
+        if (_attacking)
         {
+            //Stop all movement on the Horizontal axis.
             _rigid.velocity = new Vector2(0, _rigid.velocity.y);
             return;
         }
@@ -72,7 +74,7 @@ public class PlayerController : MonoBehaviour
         LockCursor.instance.UpdateCursorLock();
 
         //Left Mouse click + is grounded + not already attacking
-        if (IsGrounded() && Input.GetMouseButtonDown(0) && !_attacking)
+        if (IsGrounded() && Input.GetButtonDown("Fire1") && !_attacking)
         {
             //Attack
             _playerAnimation.Attack();
