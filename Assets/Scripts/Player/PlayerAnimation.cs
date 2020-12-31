@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private Animator theAnimator;
+    public Animator animator;
 
     private void Start()
     {
-        theAnimator = GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void Attack()
     {
-        theAnimator.SetTrigger("Attack");
+        animator.SetTrigger("Attack");
     }
 
     public void Move(float move)
     {
-        theAnimator.SetFloat("Move", Mathf.Abs(move));
+        animator.SetFloat("Move", Mathf.Abs(move));
     }
 
     public void Jump(bool jumping)
     {
-        theAnimator.SetBool("Jumping", jumping);
+        animator.SetBool("Jumping", jumping);
     }
 }

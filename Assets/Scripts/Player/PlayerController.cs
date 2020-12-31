@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimation _playerAnimation;
     private PlayFootstepsSounds _playFootsteps;
     private Rigidbody2D _rigid;
-    private bool _facingRight = true, _grounded, _jumping;
+    private bool _facingRight = true, _grounded, _jumping, _attacking;
     private float hangCounter;
     private float horizontalInput;
     private float jumpBufferCount;
@@ -47,17 +47,29 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //All physics code should be handled inside FixedUpdate()
+
+        if (_playerAnimation.animator.GetCurrentAnimatorStateInfo(0).IsTag("attack"))
+        {
+            _rigid.velocity = new Vector2(0, _rigid.velocity.y);
+            return;
+        }
+
         Movement();
     }
 
     private void CheckUserInput()
     {
-        //Store horizontal input from the player
+        //Cache the attack animation state
+        _attacking = _playerAnimation.animator.GetCurrentAnimatorStateInfo(0).IsTag("attack");
+        
+        //Cache horizontal input from the player
         horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        //Cache is grounded state
         _grounded = IsGrounded();
 
-        //Grounded and Left mouse was clicked (Maybe if not moving)
-        if (IsGrounded() && Input.GetMouseButtonDown(0)) //&& _rigid.velocity.x == 0
+        //Left Mouse click + is grounded + not already attacking
+        if (IsGrounded() && Input.GetMouseButtonDown(0) && !_attacking)
         {
             //Attack
             _playerAnimation.Attack();
@@ -86,6 +98,9 @@ public class PlayerController : MonoBehaviour
 
     private void PlayFootsteps()
     {
+        if (_attacking)
+            return;
+
         //Footstep particles when grounded and moving either right or left
         if (IsGrounded() && horizontalInput != 0)
         {
