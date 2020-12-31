@@ -1,12 +1,10 @@
-﻿//using System;
-using System.Collections;
-//using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Physics")]
-    //===============================================================================================================
+    //==========================================================================================
     [SerializeField, Tooltip("How much time to be able to jump, after leaving the \"ground\".")] private float hangTime = 0.2f;
     private float hangCounter;
     [SerializeField, Tooltip("How much time to be able to jump, before hitting the \"ground\".")] private float jumpBufferTime = 0.1f;
@@ -16,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("Select or Create a Layer designated for the ground.")] private LayerMask groundLayer;
 
     [Header("Player Effects")]
-    //===============================================================================================================
+    //==========================================================================================
     [SerializeField, Tooltip("The ParticleSystem you would like for footsteps.")] private ParticleSystem _footstepParticles;
     [SerializeField, Tooltip("The amount of particles to emmit over distance."), Range(0.1f, 100.0f)] private float particlesOverDistance = 1f;
 
@@ -185,6 +183,7 @@ public class PlayerController : MonoBehaviour
         {
             _landing = true;
             _audioManager.Play("PlayerLand");
+            _playerAnimation.Jump(false);
         }
 
         #region Player Attacking
@@ -196,8 +195,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
         #endregion
-        if (IsGrounded())
-            _playerAnimation.Jump(false);
+
+        //if (IsGrounded())
+        //    _playerAnimation.Jump(false);
 
         _rigid.velocity = new Vector2(horizontalInput * moveVelocity, _rigid.velocity.y);
     }
@@ -232,9 +232,9 @@ public class PlayerController : MonoBehaviour
         }
 
         //Draw a few rays around the player's lower half to show the collision
-        Debug.DrawRay(_boxCollider.bounds.center + new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
-        Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, _boxCollider.bounds.extents.y), (Vector2.right * _boxCollider.bounds.extents.x) * 2, rayColor);
+        //Debug.DrawRay(_boxCollider.bounds.center + new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
+        //Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
+        //Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, _boxCollider.bounds.extents.y), (Vector2.right * _boxCollider.bounds.extents.x) * 2, rayColor);
         //Debug.Log(raycastHit.collider);
 
         //return raycastHit.collider != null;
@@ -245,7 +245,7 @@ public class PlayerController : MonoBehaviour
     {
         _facingRight = !_facingRight;
         
-        //This flip method worked until I noticed the issue with SwordEffect animtion not flipping correctly.
+        //This flip method worked until I noticed the issue with SwordEffect animation not flipping correctly.
         //transform.rotation = Quaternion.Euler(0, _facingRight ? 0 : 180, 0);
 
         transform.localScale = new Vector3(_facingRight ? 1 : -1, 1, 1);
