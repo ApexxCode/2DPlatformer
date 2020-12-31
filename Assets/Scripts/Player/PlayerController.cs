@@ -68,6 +68,9 @@ public class PlayerController : MonoBehaviour
         //Cache is grounded state
         _grounded = IsGrounded();
 
+        //Lock and unlock the mouse cursor
+        LockCursor.instance.UpdateCursorLock();
+
         //Left Mouse click + is grounded + not already attacking
         if (IsGrounded() && Input.GetMouseButtonDown(0) && !_attacking)
         {
