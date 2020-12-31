@@ -1,6 +1,6 @@
-﻿using System;
+﻿//using System;
 using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -31,28 +31,23 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        _audioManager = FindObjectOfType<AudioManager>();
-        _footstepParticles = GetComponentInChildren<ParticleSystem>();
-        _rigid = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
-        _footEmission = _footstepParticles.emission;
         _playerAnimation = GetComponent<PlayerAnimation>();
         _playFootsteps = GetComponent<PlayFootstepsSounds>();
+        _rigid = GetComponent<Rigidbody2D>();
+        
+        _footstepParticles = GetComponentInChildren<ParticleSystem>();
+        _footEmission = _footstepParticles.emission;
 
+        _audioManager = FindObjectOfType<AudioManager>();
+        
         //Lock the rotation on Player's rigidbody
         _rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void Update()
     {
-        CheckUserInput();
-    }
-
-    private void FixedUpdate()
-    {
-        //All physics code should be handled inside FixedUpdate()
-
-        #region Jump Hangtime
+        #region Manage Jump Hangtime
 
         //Hangtime (A.k.a "Coyote Hangtime")
         //Used to allow the Player to jump for a short period after not being on the ground
@@ -68,13 +63,35 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
-        //If Player is attacking
+        #region Manage Jump Buffer Time
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpBufferCount = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCount -= Time.deltaTime;
+        }
+        #endregion
+
+        CheckUserInput();
+    }
+
+    private void FixedUpdate()
+    {
+        //Cache is grounded state
+        _grounded = IsGrounded();
+
+        #region Player Attacking
+
         if (_attacking)
         {
             //Stop all movement on the Horizontal axis.
             _rigid.velocity = new Vector2(0, _rigid.velocity.y);
             return;
         }
+        #endregion
 
         Movement();
     }
@@ -90,8 +107,7 @@ public class PlayerController : MonoBehaviour
         //Cache horizontal input from the player
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        //Cache is grounded state
-        _grounded = IsGrounded();
+        
 
         #region Player Flip Logic
 
@@ -107,12 +123,12 @@ public class PlayerController : MonoBehaviour
 
         #region Jump
 
-        if (Input.GetButtonDown("Jump") && hangCounter > 0f)
+        //Referencing our timers from FixedUpdate()
+        if (jumpBufferCount >= 0 && hangCounter > 0f)
         {
             _audioManager.Play("PlayerJump");
             _rigid.velocity = Vector2.up * jumpVelocity;
             _playerAnimation.Jump(true);
-            hangCounter = 0;
             StartCoroutine(ResetJumpRoutine());
         }
 
@@ -149,13 +165,6 @@ public class PlayerController : MonoBehaviour
 
         //Play sounds effects of walking and rock debris from Player's feet
         PlayFootsteps();
-    }
-
-    IEnumerator ResetJumpRoutine()
-    {
-        _resetJump = true;
-        yield return new WaitForSeconds(0.1f);
-        _resetJump = false;
     }
 
     private void PlayFootsteps()
@@ -206,10 +215,8 @@ public class PlayerController : MonoBehaviour
         {
             //Not touching the ground layer
             rayColor = Color.red;
-
-            return false;
         }
-        
+
         //Draw a few rays around the player's lower half to show the collision
         Debug.DrawRay(_boxCollider.bounds.center + new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
         Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, 0), Vector2.down * (_boxCollider.bounds.extents.y + extraHeight), rayColor);
@@ -224,5 +231,14 @@ public class PlayerController : MonoBehaviour
     {
         _facingRight = !_facingRight;
         transform.rotation = Quaternion.Euler(0, _facingRight ? 0 : 180, 0);
+    }
+
+    IEnumerator ResetJumpRoutine()
+    {
+        _resetJump = true;
+        jumpBufferCount = 0;
+        hangCounter = 0;
+        yield return new WaitForSeconds(0.1f);
+        _resetJump = false;
     }
 }
