@@ -5,10 +5,8 @@ using UnityEngine;
 public class Sound
 {
     public string name;
-
     public AudioClip clip;
-    [HideInInspector ]public AudioSource source;
-
+    [HideInInspector ] public AudioSource source;
     [Range(0, 1)] public float volume;
     [Range(0, 5)] public float pitch;
     public bool loop;

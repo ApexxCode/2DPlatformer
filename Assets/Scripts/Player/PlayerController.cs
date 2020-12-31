@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimation _playerAnimation;
     private PlayFootstepsSounds _playFootsteps;
     private Rigidbody2D _rigid;
-    private bool _facingRight = true, _grounded, _jumping, _attacking;
+    private bool _facingRight = true, _resetJump, _grounded, _attacking;
     private float hangCounter;
     private float horizontalInput;
     private float jumpBufferCount;
@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         CheckUserInput();
-        //PlayFootsteps();
     }
 
     private void FixedUpdate()
@@ -75,15 +74,6 @@ public class PlayerController : MonoBehaviour
         //Lock and unlock the mouse cursor
         LockCursor.instance.UpdateCursorLock();
 
-        //Left Mouse click + is grounded + not already attacking
-        if (IsGrounded() && Input.GetButtonDown("Fire1") && !_attacking)
-        {
-            //Attack
-            _audioManager.Play("PlayerSword");
-            _audioManager.Play("PlayerAttack");
-            _playerAnimation.Attack();
-        }   
-
         //If moving right and facing left OR moving left and facing right
         //flip the character facing the correct direction.
         if (horizontalInput > 0 && !_facingRight || horizontalInput < 0 && _facingRight)
@@ -95,9 +85,30 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            _playerAnimation.Jump(true);
-            _jumping = true;
             _audioManager.Play("PlayerJump");
+            _rigid.velocity = Vector2.up * jumpVelocity;
+            _playerAnimation.Jump(true);
+            StartCoroutine(ResetJumpRoutine());
+        }
+
+        //Released jump button and moving upwards
+        if (Input.GetButtonUp("Jump") && _rigid.velocity.y > 0)
+        {
+            _rigid.velocity = new Vector2(_rigid.velocity.x, _rigid.velocity.y * 0.5f);
+        }
+
+        //Animate the movement
+        _playerAnimation.Move(horizontalInput);
+
+        PlayFootsteps();
+
+        //Left Mouse click + is grounded + not already attacking
+        if (IsGrounded() && Input.GetButtonDown("Fire1") && !_attacking)
+        {
+            //Attack
+            _audioManager.Play("PlayerSword");
+            _audioManager.Play("PlayerAttack");
+            _playerAnimation.Attack();
         }
 
         //R Key was pressed - Reset Player position to home (0, 0, 0)
@@ -105,11 +116,13 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = Vector3.zero;
         }
+    }
 
-        //Animate the movement
-        _playerAnimation.Move(horizontalInput);
-
-        PlayFootsteps();
+    IEnumerator ResetJumpRoutine()
+    {
+        _resetJump = true;
+        yield return new WaitForSeconds(0.1f);
+        _resetJump = false;
     }
 
     private void PlayFootsteps()
@@ -134,14 +147,9 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        if (_jumping)
-        {
-            _rigid.velocity = Vector2.up * jumpVelocity;
-            _playerAnimation.Jump(true);
-            _jumping = false;
-        }
+        if (IsGrounded())
+            _playerAnimation.Jump(false);
 
-        //Move the player
         _rigid.velocity = new Vector2(horizontalInput * moveVelocity, _rigid.velocity.y);
     }
 
@@ -158,12 +166,15 @@ public class PlayerController : MonoBehaviour
             //Hit the ground layer
             rayColor = Color.green;
 
-            _playerAnimation.Jump(false);
+            if (!_resetJump)
+                return true;
         }
         else 
         {
             //Not touching the ground layer
             rayColor = Color.red;
+
+            return false;
         }
         
         //Draw a few rays around the player's lower half to show the collision
@@ -172,7 +183,8 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(_boxCollider.bounds.center - new Vector3(_boxCollider.bounds.extents.x, _boxCollider.bounds.extents.y), (Vector2.right * _boxCollider.bounds.extents.x) * 2, rayColor);
         //Debug.Log(raycastHit.collider);
 
-        return raycastHit.collider != null;
+        //return raycastHit.collider != null;
+        return false;
     }
 
     private void Flip()

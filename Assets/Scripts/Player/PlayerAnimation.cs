@@ -16,13 +16,13 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
-    public void Move(float move)
+    public void Move(float value)
     {
-        animator.SetFloat("Move", Mathf.Abs(move));
+        animator.SetFloat("Move", Mathf.Abs(value));
     }
 
-    public void Jump(bool jumping)
+    public void Jump(bool value)
     {
-        animator.SetBool("Jumping", jumping);
+        animator.SetBool("Jumping", value);
     }
 }
