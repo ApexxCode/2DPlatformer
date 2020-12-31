@@ -72,7 +72,7 @@
       "dependencies": {}
     },
     "com.unity.2d.tilemap.extras": {
-      "version": "file:../Assets/2d-extras",
+      "version": "file:C:/Users/Apexx/Desktop/2d-extras",
       "depth": 0,
       "source": "local",
       "dependencies": {

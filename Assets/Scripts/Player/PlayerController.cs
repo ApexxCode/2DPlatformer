@@ -56,12 +56,12 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         _grounded = IsGrounded();
 
-        //Attack
-        if (IsGrounded() && _rigid.velocity.x == 0 && Input.GetMouseButtonDown(0))
+        //Grounded and Left mouse was clicked (Maybe if not moving)
+        if (IsGrounded() && Input.GetMouseButtonDown(0)) //&& _rigid.velocity.x == 0
         {
-            Debug.Log($"Attack()");
+            //Attack
             _playerAnimation.Attack();
-        }
+        }   
 
         if (horizontalInput > 0 && !_facingRight || horizontalInput < 0 && _facingRight)
             Flip();
@@ -106,7 +106,6 @@ public class PlayerController : MonoBehaviour
         if (_jumping)
         {
             _rigid.velocity = Vector2.up * jumpVelocity;
-            //Animate the jump
             _playerAnimation.Jump(true);
             _jumping = false;
         }
