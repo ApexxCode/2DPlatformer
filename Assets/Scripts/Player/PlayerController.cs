@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("The ParticleSystem you would like for footsteps.")] private ParticleSystem _footstepParticles;
     [SerializeField, Tooltip("The amount of particles to emmit over distance."), Range(0.1f, 10.0f)] private float particlesOverDistance = 1f;
 
+    private AudioManager _audioManager;
     private BoxCollider2D _boxCollider;
     private ParticleSystem.EmissionModule _footEmission;
     private PlayerAnimation _playerAnimation;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        _audioManager = FindObjectOfType<AudioManager>();
         _footstepParticles = GetComponentInChildren<ParticleSystem>();
         _rigid = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
@@ -77,6 +79,8 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded() && Input.GetButtonDown("Fire1") && !_attacking)
         {
             //Attack
+            _audioManager.Play("PlayerSword");
+            _audioManager.Play("PlayerAttack");
             _playerAnimation.Attack();
         }   
 
@@ -93,6 +97,7 @@ public class PlayerController : MonoBehaviour
         {
             _playerAnimation.Jump(true);
             _jumping = true;
+            _audioManager.Play("PlayerJump");
         }
 
         //R Key was pressed - Reset Player position to home (0, 0, 0)
@@ -150,10 +155,10 @@ public class PlayerController : MonoBehaviour
         //If hit something...
         if (raycastHit.collider != null)
         {
-            _playerAnimation.Jump(false);
-
             //Hit the ground layer
             rayColor = Color.green;
+
+            _playerAnimation.Jump(false);
         }
         else 
         {

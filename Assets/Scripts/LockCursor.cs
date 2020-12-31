@@ -10,7 +10,9 @@ public class LockCursor : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
+
         SetCursorLock(cursorIsLocked);
     }
 
