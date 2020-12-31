@@ -6,15 +6,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Physics")]
-    //[SerializeField, Tooltip("How much time is allowed when the player is over a ledge to allow a jump.")] private float hangTime = 0.2f;
-    //[SerializeField, Tooltip("How much time is allowed to enable jump, before hitting the ground.")] private float jumpBufferTime = 0.1f;
+    //===============================================================================================================
+    [SerializeField, Tooltip("How much time to be able to jump, after leaving the \"ground\".")] private float hangTime = 0.2f;
+    private float hangCounter;
+    [SerializeField, Tooltip("How much time to be able to jump, before hitting the \"ground\".")] private float jumpBufferTime = 0.1f;
+    private float jumpBufferCount;
     [SerializeField, Tooltip("How much force to apply to the Player's vertical position when jumping.")] private float jumpVelocity = 12f;
     [SerializeField, Tooltip("How much force to apply the the Player's horizontal position.")] private float moveVelocity = 4f;
     [SerializeField, Tooltip("Select or Create a Layer designated for the ground.")] private LayerMask groundLayer;
 
     [Header("Player Effects")]
+    //===============================================================================================================
     [SerializeField, Tooltip("The ParticleSystem you would like for footsteps.")] private ParticleSystem _footstepParticles;
-    [SerializeField, Tooltip("The amount of particles to emmit over distance."), Range(0.1f, 10.0f)] private float particlesOverDistance = 1f;
+    [SerializeField, Tooltip("The amount of particles to emmit over distance."), Range(0.1f, 100.0f)] private float particlesOverDistance = 1f;
 
     private AudioManager _audioManager;
     private BoxCollider2D _boxCollider;
@@ -23,11 +27,9 @@ public class PlayerController : MonoBehaviour
     private PlayFootstepsSounds _playFootsteps;
     private Rigidbody2D _rigid;
     private bool _facingRight = true, _resetJump, _grounded, _attacking;
-    private float hangCounter;
     private float horizontalInput;
-    private float jumpBufferCount;
 
-    private void Start()
+    private void Awake()
     {
         _audioManager = FindObjectOfType<AudioManager>();
         _footstepParticles = GetComponentInChildren<ParticleSystem>();
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         _playerAnimation = GetComponent<PlayerAnimation>();
         _playFootsteps = GetComponent<PlayFootstepsSounds>();
 
+        //Lock the rotation on Player's rigidbody
         _rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
@@ -48,6 +51,22 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //All physics code should be handled inside FixedUpdate()
+
+        #region Jump Hangtime
+
+        //Hangtime (A.k.a "Coyote Hangtime")
+        //Used to allow the Player to jump for a short period after not being on the ground
+        if (IsGrounded() && !_attacking)
+        {
+            //Always keep the hangCounter = hangTime while touching the ground
+            hangCounter = hangTime;
+        }
+        else
+        {
+            //Not on the ground, start reducing the hangCounter
+            hangCounter -= Time.deltaTime;
+        }
+        #endregion
 
         //If Player is attacking
         if (_attacking)
@@ -62,17 +81,19 @@ public class PlayerController : MonoBehaviour
 
     private void CheckUserInput()
     {
+        //Lock and unlock the mouse cursor
+        LockCursor.instance.UpdateCursorLock();
+
         //Cache the attack animation state
         _attacking = _playerAnimation.animator.GetCurrentAnimatorStateInfo(0).IsTag("attack");
-        
+
         //Cache horizontal input from the player
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
         //Cache is grounded state
         _grounded = IsGrounded();
 
-        //Lock and unlock the mouse cursor
-        LockCursor.instance.UpdateCursorLock();
+        #region Player Flip Logic
 
         //If moving right and facing left OR moving left and facing right
         //flip the character facing the correct direction.
@@ -80,14 +101,18 @@ public class PlayerController : MonoBehaviour
         {
             //Make sure to disable flipping while the Player is in the Attack animation
             if (!_playerAnimation.animator.GetCurrentAnimatorStateInfo(0).IsTag("attack"))
-                Flip();
+                FlipPlayer();
         }
+        #endregion
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        #region Jump
+
+        if (Input.GetButtonDown("Jump") && hangCounter > 0f)
         {
             _audioManager.Play("PlayerJump");
             _rigid.velocity = Vector2.up * jumpVelocity;
             _playerAnimation.Jump(true);
+            hangCounter = 0;
             StartCoroutine(ResetJumpRoutine());
         }
 
@@ -96,11 +121,9 @@ public class PlayerController : MonoBehaviour
         {
             _rigid.velocity = new Vector2(_rigid.velocity.x, _rigid.velocity.y * 0.5f);
         }
+        #endregion
 
-        //Animate the movement
-        _playerAnimation.Move(horizontalInput);
-
-        PlayFootsteps();
+        #region Attack
 
         //Left Mouse click + is grounded + not already attacking
         if (IsGrounded() && Input.GetButtonDown("Fire1") && !_attacking)
@@ -110,12 +133,22 @@ public class PlayerController : MonoBehaviour
             _audioManager.Play("PlayerAttack");
             _playerAnimation.Attack();
         }
+        #endregion
+
+        #region R-Key (Reset Player's position)
 
         //R Key was pressed - Reset Player position to home (0, 0, 0)
         if (Input.GetKeyDown(KeyCode.R))
         {
             transform.position = Vector3.zero;
         }
+        #endregion
+
+        //Tell the Animator component to animate based on user input
+        _playerAnimation.Move(horizontalInput);
+
+        //Play sounds effects of walking and rock debris from Player's feet
+        PlayFootsteps();
     }
 
     IEnumerator ResetJumpRoutine()
@@ -187,7 +220,7 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    private void Flip()
+    private void FlipPlayer()
     {
         _facingRight = !_facingRight;
         transform.rotation = Quaternion.Euler(0, _facingRight ? 0 : 180, 0);
