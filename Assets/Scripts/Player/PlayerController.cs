@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
         LockCursor.instance.UpdateCursorLock();
 
         //Cache the attack animation state
-        _attacking = _playerAnimation.animator.GetCurrentAnimatorStateInfo(0).IsTag("attack");
+        _attacking = _playerAnimation._animator.GetCurrentAnimatorStateInfo(0).IsTag("attack");
 
         //Cache horizontal input from the player
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         if (horizontalInput > 0 && !_facingRight || horizontalInput < 0 && _facingRight)
         {
             //Make sure to disable flipping while the Player is in the Attack animation
-            if (!_playerAnimation.animator.GetCurrentAnimatorStateInfo(0).IsTag("attack"))
+            if (!_playerAnimation._animator.GetCurrentAnimatorStateInfo(0).IsTag("attack"))
                 FlipPlayer();
         }
         #endregion
@@ -244,7 +244,11 @@ public class PlayerController : MonoBehaviour
     private void FlipPlayer()
     {
         _facingRight = !_facingRight;
-        transform.rotation = Quaternion.Euler(0, _facingRight ? 0 : 180, 0);
+        
+        //This flip method worked until I noticed the issue with SwordEffect animtion not flipping correctly.
+        //transform.rotation = Quaternion.Euler(0, _facingRight ? 0 : 180, 0);
+
+        transform.localScale = new Vector3(_facingRight ? 1 : -1, 1, 1);
     }
 
     IEnumerator ResetJumpRoutine()

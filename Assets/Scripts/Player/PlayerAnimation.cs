@@ -4,25 +4,30 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    public Animator animator;
+    public Animator _animator;
+    public Animator _swordAnimator;
 
     private void Start()
     {
-        animator = GetComponentInChildren<Animator>();
+        _animator = GetComponentInChildren<Animator>();
+
+        //Reference the 2nd component down from inside the Playe object
+        _swordAnimator = transform.GetChild(1).GetComponent<Animator>();
     }
 
     public void Attack()
     {
-        animator.SetTrigger("Attack");
+        _animator.SetTrigger("Attack");
+        _swordAnimator.SetTrigger("SwordEffect");
     }
 
     public void Move(float value)
     {
-        animator.SetFloat("Move", Mathf.Abs(value));
+        _animator.SetFloat("Move", Mathf.Abs(value));
     }
 
     public void Jump(bool value)
     {
-        animator.SetBool("Jumping", value);
+        _animator.SetBool("Jumping", value);
     }
 }
