@@ -78,8 +78,14 @@ public class PlayerController : MonoBehaviour
             _playerAnimation.Attack();
         }   
 
+        //If moving right and facing left OR moving left and facing right
+        //flip the character facing the correct direction.
         if (horizontalInput > 0 && !_facingRight || horizontalInput < 0 && _facingRight)
-            Flip();
+        {
+            //Make sure to disable flipping while the Player is in the Attack animation
+            if (!_playerAnimation.animator.GetCurrentAnimatorStateInfo(0).IsTag("attack"))
+                Flip();
+        }
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
