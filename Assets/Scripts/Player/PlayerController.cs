@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimation _playerAnimation;
     private PlayFootstepsSounds _playFootsteps;
     private Rigidbody2D _rigid;
-    private bool _facingRight = true, _resetJump, _grounded, _attacking;
+    private bool _facingRight = true, _resetJump, _grounded, _attacking, _onPlatformLastFrame, _landing, _wasGrounded;
     private float horizontalInput;
 
     private void Awake()
@@ -80,18 +80,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _wasGrounded = _grounded;
+
         //Cache is grounded state
         _grounded = IsGrounded();
-
-        #region Player Attacking
-
-        if (_attacking)
-        {
-            //Stop all movement on the Horizontal axis.
-            _rigid.velocity = new Vector2(0, _rigid.velocity.y);
-            return;
-        }
-        #endregion
 
         Movement();
     }
@@ -106,8 +98,6 @@ public class PlayerController : MonoBehaviour
 
         //Cache horizontal input from the player
         horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        
 
         #region Player Flip Logic
 
@@ -126,7 +116,8 @@ public class PlayerController : MonoBehaviour
         //Referencing our timers from FixedUpdate()
         if (jumpBufferCount >= 0 && hangCounter > 0f)
         {
-            _audioManager.Play("PlayerJump");
+            _audioManager.Play("PlayerJumpGear");
+            //_audioManager.Play("PlayerJump");
             _rigid.velocity = Vector2.up * jumpVelocity;
             _playerAnimation.Jump(true);
             StartCoroutine(ResetJumpRoutine());
@@ -169,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayFootsteps()
     {
-        if (_attacking)
+        if (_attacking || _landing)
             return;
 
         //Footstep particles when grounded and moving either right or left
@@ -189,6 +180,22 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
+        //State changed from not being on the ground to being on the ground
+        if (_wasGrounded != _grounded && IsGrounded())
+        {
+            _landing = true;
+            _audioManager.Play("PlayerLand");
+        }
+
+        #region Player Attacking
+
+        if (_attacking)
+        {
+            //Stop all movement on the Horizontal axis.
+            _rigid.velocity = new Vector2(0, _rigid.velocity.y);
+            return;
+        }
+        #endregion
         if (IsGrounded())
             _playerAnimation.Jump(false);
 
@@ -207,6 +214,13 @@ public class PlayerController : MonoBehaviour
         {
             //Hit the ground layer
             rayColor = Color.green;
+
+            _landing = false;
+
+            if (!_onPlatformLastFrame)
+            {
+                _onPlatformLastFrame = raycastHit.collider;
+            }
 
             if (!_resetJump)
                 return true;
