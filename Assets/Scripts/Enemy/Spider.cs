@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Spider : Enemy
 {
-    
+    private void Start()
+    {
+        // Don't attack
+    }
 }
