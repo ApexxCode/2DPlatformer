@@ -6,9 +6,9 @@ public class Enemy : MonoBehaviour
 {
     //Here is the "blueprint" that defines an Enemy
 
-    public float health;
-    public float speed;
-    public int diamonds;
+    protected float health;
+    protected float speed;
+    protected int diamonds;
 
     public void Attack()
     {
