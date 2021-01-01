@@ -6,6 +6,6 @@ public class MossGiant : Enemy
 {
     private void Start()
     {
-        Attack();
+        //Attack();
     }
 }

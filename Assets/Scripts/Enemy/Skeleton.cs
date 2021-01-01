@@ -6,6 +6,6 @@ public class Skeleton : Enemy
 {
     private void Start()
     {
-        Attack();
+        //Attack();
     }
 }
