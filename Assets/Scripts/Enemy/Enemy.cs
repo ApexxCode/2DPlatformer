@@ -12,6 +12,6 @@ public class Enemy : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log($"My name is: {this.gameObject.name}");
+        Debug.Log($"{this.gameObject.name} attack!");
     }
 }
