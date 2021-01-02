@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     public Sound[] sounds;
 
+    public bool playBGM = true;
+
     private void Awake()
     {
         if (instance == null)
@@ -27,7 +29,8 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.loop;
         }
 
-        //Play("BGM");
+        if (playBGM)
+            Play("BGM");
     }
 
     public void Play(string name)
