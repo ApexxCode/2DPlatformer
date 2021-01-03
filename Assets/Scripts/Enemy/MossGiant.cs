@@ -6,6 +6,11 @@ public class MossGiant : Enemy
 {
     private void Start()
     {
-        //Attack();
+        Attack();
+    }
+    
+    public override void Update()
+    {
+        Debug.Log($"MossGiant updating...");
     }
 }

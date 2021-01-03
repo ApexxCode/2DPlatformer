@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     //Here is the "blueprint" that defines an Enemy
 
-    protected float health;
-    protected float speed;
-    protected int diamonds;
+    [SerializeField] protected float health;
+    [SerializeField] protected float speed;
+    [SerializeField] protected int diamonds;
 
-    public void Attack()
+    public abstract void Update();
+
+    public virtual void Attack()
     {
-        Debug.Log($"{this.gameObject.name} attack!");
+        Debug.Log($"Base attack!");
     }
 }
