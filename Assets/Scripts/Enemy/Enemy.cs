@@ -14,6 +14,6 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Attack()
     {
-        Debug.Log($"Base attack!");
+        Debug.Log($"{this.gameObject.name} Base attack");
     }
 }

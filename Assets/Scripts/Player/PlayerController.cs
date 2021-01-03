@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimation _playerAnimation;
     private PlayFootstepsSounds _playFootsteps;
     private Rigidbody2D _rigid;
-    private bool _facingRight = true, _resetJump, _grounded, _attacking, _onPlatformLastFrame, _landing, _wasGrounded;
+    private bool _facingRight = true, _resetJump, _grounded = true, _attacking, _onPlatformLastFrame, _landing, _wasGrounded;
     private float horizontalInput;
 
     private void Awake()

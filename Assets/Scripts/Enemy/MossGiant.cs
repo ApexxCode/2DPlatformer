@@ -11,6 +11,6 @@ public class MossGiant : Enemy
     
     public override void Update()
     {
-        Debug.Log($"MossGiant updating...");
+        //Debug.Log($"MossGiant updating...");
     }
 }

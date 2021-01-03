@@ -11,11 +11,11 @@ public class Spider : Enemy
 
     public override void Update()
     {
-        Debug.Log($"Spider upating...");
+        //Debug.Log($"Spider updating...");
     }
 
     public override void Attack()
     {
-        Debug.Log("Spider attack");
+        Debug.Log("Spider override attack");
     }
 }
